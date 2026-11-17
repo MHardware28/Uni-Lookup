@@ -9,7 +9,7 @@ import AboutBox from "./components/AboutBox.jsx";
 // bring in FilterBar from the components folder
 import FilterBar from "./components/FilterBar.jsx";
 // bring in StatusMessage from the components folder
-import StatusMessage from "./components/StatusMessage.jsx";
+//import StatusMessage from "./components/StatusMessage.jsx";
 // bring in UniversityCard from the components folder
 import UniversityCard from "./components/UniversityCard.jsx";
 
@@ -214,28 +214,21 @@ function App() {
   const headingText =
     selectedCountry === "" ? "Universities" : "Universities in " + selectedCountry;
 
-  // picks the message to show above the cards
-  let message = null;
-  if (loading) {
-    // the file is still on its way
-    message = <StatusMessage type="loading" text="Loading universities..." />;
-  } else if (error !== "") {
-    // the request failed
-    message = <StatusMessage type="error" text={error} />;
-  } else if (hasFilter === false) {
-    // nothing picked yet
-    message = (
-      <StatusMessage
-        type="empty"
-        text="Pick a country or type a name to see universities."
-      />
-    );
-  } else if (matching.length === 0) {
-    // the filters matched nothing
-    message = (
-      <StatusMessage type="empty" text="No universities match your search." />
-    );
-  }
+  // pick the message to show above the cards
+let message = null;
+if (loading) {
+  // the file is still on its way
+  message = <p className="message">Loading universities...</p>;
+} else if (error !== "") {
+  // the request failed
+  message = <p className="error">{error}</p>;
+} else if (hasFilter === false) {
+  // nothing picked yet
+  message = <p className="message">Pick a country or type a name to see universities.</p>;
+} else if (matching.length === 0) {
+  // the filters matched nothing
+  message = <p className="message">No universities match your search.</p>;
+}
 
   // the cards stay empty until there is something to show
   let cards = [];

@@ -1,5 +1,3 @@
-// bring in React from the react package
-import { useState, useEffect } from "react";
 // defines university card component
 function UniversityCard(props) {
   // read the university from props
@@ -12,7 +10,7 @@ function UniversityCard(props) {
   }
   // runs when the button on this card is clicked
   function handleClick() {
-    // hand this university up to App
+    // hands this university up to App
     props.onButtonClick(university);
   }
 
@@ -29,7 +27,7 @@ function UniversityCard(props) {
           Visit website
         </a>
       )}
-      {/* the button label comes from props: Save or Remove */}
+      {/* the button label comes from props */}
       <button onClick={handleClick}>{props.buttonLabel}</button>
     </article>
   );
