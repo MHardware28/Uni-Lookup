@@ -1,0 +1,16 @@
+/* load the Inter font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* style the whole page */
+body {
+  margin: 0;
+  background: #F7F7F4;
+  color: #1B1F24;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* show a clear outline on whatever has focus */
+:focus-visible {
+  outline: 3px solid #1F5FBF;
+  outline-offset: 2px;
+}
