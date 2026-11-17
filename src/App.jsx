@@ -8,8 +8,6 @@ import PageHeader from "./components/PageHeader.jsx";
 import AboutBox from "./components/AboutBox.jsx";
 // bring in FilterBar from the components folder
 import FilterBar from "./components/FilterBar.jsx";
-// bring in StatusMessage from the components folder
-//import StatusMessage from "./components/StatusMessage.jsx";
 // bring in UniversityCard from the components folder
 import UniversityCard from "./components/UniversityCard.jsx";
 
@@ -20,8 +18,8 @@ const SITE =
 //card amount seen on screen at any given time
 const PAGE_SIZE = 10;
 
-// turn one record from the file into a plain university object
-// map hands this function the record and its spot in the list
+// turns one record from the file into a plain university object
+// maps the function to the record and its spot in the list
 function makeUniversity(record, index) {
   // start with no website
   let website = "";
@@ -49,41 +47,41 @@ function makeUniversity(record, index) {
 function makeCountryList(universities) {
   // the list starts empty
   const countries = [];
-  // look at each university
+  // looks at each university
   for (let i = 0; i < universities.length; i++) {
-    // read its country
+    // reads its country
     const country = universities[i].country;
-    // add it only if it is not in the list yet
+    // adds it only if it is not in the list yet
     if (countries.includes(country) === false) {
       countries.push(country);
     }
   }
-  // put the countries in A to Z order
+  // puts the countries in A to Z order
   countries.sort();
-  // hand the list back
+  // hands the list back
   return countries;
 }
 
-// define the App component as a function
+// defines the App component as a function
 function App() {
   // state: make every university, it appears empty until the file arrives
   const [universities, setUniversities] = useState([]);
   // state: is the file still loading? starts at true
   const [loading, setLoading] = useState(true);
-  // state: the error message; empty means no error
+  // state: the error message, empty means no error
   const [error, setError] = useState("");
-  // state: the chosen country; empty means every country
+  // state: the chosen country, empty means every country
   const [selectedCountry, setSelectedCountry] = useState("");
-  // state: the text in the search box; starts empty
+  // state: the text in the search box, starts empty
   const [searchText, setSearchText] = useState("");
-  // state: how many cards are on screen; starts at one page
+  // state: how many cards are on screen, starts at one page
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  // state: the universities the student saved; starts empty
+  // state: the universities the student saved, starts empty
   const [shortlist, setShortlist] = useState([]);
 
   // the side effect: ask for the file
   function startLoad() {
-    // useEffect cannot take an async function, so the async work lives in here
+    // useEffect cannot take an async function, so the async work lives in this function
     async function loadUniversities() {
       try {
         // starts the request and waits for the response
@@ -94,12 +92,12 @@ function App() {
         }
         // reads the body as JSON and waits for it
         const records = await responsePromise.json();
-        // turn every record into a plain university object
+        // turns every record into a plain university object
         const list = records.map(makeUniversity);
         // stores it as a list of the universities
         setUniversities(list);
       } catch (problem) {
-        // show a message instead of the list
+        // shows a message instead of the list
         setError("Could not load the university list. Try again later.");
       }
       setLoading(false);
@@ -107,22 +105,22 @@ function App() {
     // loads the file and stores it in state
     loadUniversities();
   }
-  //load the file only once, when the page first appears
+  //loads the file only once, when the page first appears
   useEffect(startLoad, []);
 
   // runs when the country dropdown changes
   function handleCountryChange(country) {
-    // store the new country; React draws App again
+    // stores the new country
     setSelectedCountry(country);
-    // go back to the first page of cards
+    // goes back to the first page of cards
     setVisibleCount(PAGE_SIZE);
   }
 
   // runs when the search box changes
   function handleSearchChange(text) {
-    // store the new text; React draws App again
+    // stores the new text
     setSearchText(text);
-    // go back to the first page of cards
+    // goes back to the first page of cards
     setVisibleCount(PAGE_SIZE);
   }
 
@@ -214,7 +212,7 @@ function App() {
   const headingText =
     selectedCountry === "" ? "Universities" : "Universities in " + selectedCountry;
 
-  // pick the message to show above the cards
+// picks the message to show above the cards
 let message = null;
 if (loading) {
   // the file is still on its way
@@ -223,10 +221,10 @@ if (loading) {
   // the request failed
   message = <p className="error">{error}</p>;
 } else if (hasFilter === false) {
-  // nothing picked yet
+  // nothing has been picked yet
   message = <p className="message">Pick a country or type a name to see universities.</p>;
 } else if (matching.length === 0) {
-  // the filters matched nothing
+  // the filters matched to nothing in the given list
   message = <p className="message">No universities match your search.</p>;
 }
 
@@ -274,9 +272,9 @@ if (loading) {
         <section className="box wide">
           {/* the heading */}
           <h2>{headingText}</h2>
-          {/* loading, error, or empty message */}
+          {/* shows loading, error, or an empty message */}
           {message}
-          {/* how many are showing */}
+          {/* how many cards are showing */}
           <p className="message">{countText}</p>
           {/* the cards, in a row that wraps */}
           <div className="card-row">{cards}</div>
@@ -302,6 +300,5 @@ if (loading) {
     </div>
   );
 }
-
 // make App available to main.jsx
 export default App;
