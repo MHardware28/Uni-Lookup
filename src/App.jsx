@@ -85,13 +85,13 @@ function App() {
     async function loadUniversities() {
       try {
         // starts the request and waits for the response
-        const responsePromise = await fetch(SITE);
+        const Promise = await fetch(SITE);
         // a bad status like 404 counts as a failure
-        if (responsePromise.ok === false) {
-          throw new Error("bad status " + responsePromise.status);
+        if (Promise.ok === false) {
+          throw new Error("bad status " + Promise.status);
         }
         // reads the body as JSON and waits for it
-        const records = await responsePromise.json();
+        const records = await Promise.json();
         // turns every record into a plain university object
         const list = records.map(makeUniversity);
         // stores it as a list of the universities
@@ -295,7 +295,7 @@ if (loading) {
       </main>
       {/* where the data comes from */}
       <footer className="footer">
-        Data is from the Hipo University's GitHub repository.
+        Data is from Hipo's university domains list on GitHub. It may be out of date, so check each school's own website.
       </footer>
     </div>
   );
